@@ -7,3 +7,4 @@ scipy
 soundfile
 requests
 tqdm
+ffmpeg-python

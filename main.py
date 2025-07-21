@@ -1,13 +1,15 @@
-# main.py
 from flask import Flask
 import threading
-from bot import run_bot  # Import the bot runner
+from bot import run_bot
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return "Bot is running!"
+    return "Bot is running via Flask!"
 
 # Start the bot in a background thread
 threading.Thread(target=run_bot).start()

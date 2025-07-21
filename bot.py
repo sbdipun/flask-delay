@@ -1,8 +1,6 @@
-# bot.py
 from pyrogram import Client, filters
 from pyrogram.types import Message
 import os
-import asyncio
 import subprocess
 import numpy as np
 import soundfile as sf
@@ -19,6 +17,32 @@ bot = Client(
     api_hash=API_HASH,
     bot_token=BOT_TOKEN
 )
+
+# === New: /start and /help handlers ===
+@bot.on_message(filters.command("start") & (filters.private | filters.group))
+async def start_handler(client: Client, message: Message):
+    text = (
+        "👋 Hello! I'm a bot that aligns Hindi audio with English video.\n\n"
+        "Use `/help` to see how to use me."
+    )
+    await message.reply(text)
+
+@bot.on_message(filters.command("help") & (filters.private | filters.group))
+async def help_handler(client: Client, message: Message):
+    text = (
+        "📄 **How to Use Me**\n\n"
+        "1. Send a command like this:\n"
+        "   `/delay <Hindi_Audio_URL> <English_Video_URL>`\n\n"
+        "2. I will:\n"
+        "   - Download the audio/video\n"
+        "   - Calculate the audio delay\n"
+        "   - Sync and combine the streams\n"
+        "   - Send you the preview file\n\n"
+        "✅ Example:\n"
+        "`/delay https://example.com/audio_hi.mp3  https://example.com/video_en.mp4 `"
+    )
+    await message.reply(text)
+
 
 # List of temporary files to delete after processing
 TEMP_FILES = [

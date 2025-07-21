@@ -1,4 +1,5 @@
 import re
+import os
 from os import environ, getenv
 
 API_ID = int(os.getenv("API_ID", ""))
